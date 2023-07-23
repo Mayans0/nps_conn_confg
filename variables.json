@@ -3,8 +3,8 @@
      "client": "192.168.123.31",
      "server": "192.168.123.11",
      "bind9" : "192.168.123.22",
-      "type" : "A",
-      "value" : "10.10.10.10",
-      "domain_name" : "host.zone-nps.iliesbenhabbour.com"
-
+     "type" : "A",
+     "value" : "10.10.10.10",
+     "domain_name" : "host.zone-nps.iliesbenhabbour.com",
+     "packet_filter": "udp and not src host 192.168.123.31"
 }
