@@ -2,64 +2,12 @@
   "id": "CONTROL_CHANNEL_SET_UP",
   "initial": "INITIALIZING",
   "states": {
-    "SETTING_UP_CONTROL_LINK": {
-      "entry": [
-        {
-          "params": {},
-          "type": "set (10) (timeout)"
-        },
-        {
-          "params": {},
-          "type": "wait_ready_signal (controller_protocol timeout)"
-        }
-      ],
-      "on": {
-        "TIMEOUT": {
-          "target": "TIMEOUT ENDING",
-          "actions": {
-            "params": {},
-            "type": "assign (controller_protocol) (controller_protocol)"
-          }
-        },
-        "READY": {
-          "target": "SUCCESSFUL CONTROL LINK ENDING",
-          "actions": {
-            "params": {},
-            "type": "assign (controller_protocol) (controller_protocol)"
-          }
-        }
-      }
-    },
     "INITIALIZING": {
       "on": {
         "STARTED": {
           "target": "LOADING_VARIABLES"
         }
       }
-    },
-    "TIMEOUT ENDING": {
-      "entry": [
-        {
-          "params": {},
-          "type": "set (TIMEOUT) (event)"
-        },
-        {
-          "params": {},
-          "type": "return_values (event controller_protocol)"
-        }
-      ]
-    },
-    "SUCCESSFUL CONTROL LINK ENDING": {
-      "entry": [
-        {
-          "params": {},
-          "type": "set (CONTROL_CHANNEL_READY) (event)"
-        },
-        {
-          "params": {},
-          "type": "return_values (event controller_protocol)"
-        }
-      ]
     },
     "LOADING_VARIABLES": {
       "entry": [
@@ -97,7 +45,11 @@
       "entry": [
         {
           "params": {},
-          "type": "load_control_channel_configuration (control_client) (controller_conf)"
+          "type": "get_from_file (variables controller_filename) (controller_filename)"
+        },
+        {
+          "params": {},
+          "type": "load_control_channel_configuration (controller_filename) (controller_conf)"
         },
         {
           "params": {},
@@ -126,7 +78,11 @@
       "entry": [
         {
           "params": {},
-          "type": "load_control_channel_configuration (control_server) (controller_conf)"
+          "type": "get_from_file (variables controller_filename) (controller_filename)"
+        },
+        {
+          "params": {},
+          "type": "load_control_channel_configuration (controller_filename) (controller_conf)"
         },
         {
           "params": {},
@@ -150,6 +106,58 @@
           }
         }
       }
+    },
+    "SETTING_UP_CONTROL_LINK": {
+      "entry": [
+        {
+          "params": {},
+          "type": "set (10) (timeout)"
+        },
+        {
+          "params": {},
+          "type": "wait_ready_signal (controller_protocol timeout)"
+        }
+      ],
+      "on": {
+        "TIMEOUT": {
+          "target": "TIMEOUT ENDING",
+          "actions": {
+            "params": {},
+            "type": "assign (controller_protocol) (controller_protocol)"
+          }
+        },
+        "READY": {
+          "target": "SUCCESSFUL CONTROL LINK ENDING",
+          "actions": {
+            "params": {},
+            "type": "assign (controller_protocol) (controller_protocol)"
+          }
+        }
+      }
+    },
+    "TIMEOUT ENDING": {
+      "entry": [
+        {
+          "params": {},
+          "type": "set (TIMEOUT) (event)"
+        },
+        {
+          "params": {},
+          "type": "return_values (event controller_protocol)"
+        }
+      ]
+    },
+    "SUCCESSFUL CONTROL LINK ENDING": {
+      "entry": [
+        {
+          "params": {},
+          "type": "set (CONTROL_CHANNEL_READY) (event)"
+        },
+        {
+          "params": {},
+          "type": "return_values (event controller_protocol)"
+        }
+      ]
     }
   }
 }
